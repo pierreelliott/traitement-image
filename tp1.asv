@@ -1,0 +1,24 @@
+clear;
+imdata = imread('mandrill.bmp');
+sizeIm = size(imdata)
+nbOctets = sizeIm(1) * sizeIm(2) * sizeIm(3)
+imfinfo('mandrill.bmp')
+
+"2. Quantification"
+"Infos sur les niveaux de gris"
+imfinfo('cameraman.jpg')
+
+"Réduction du niveau de gris de l'image (modifier le paramètre 'reduced')"
+im_cameraman = imread('cameraman.jpg');
+im_reduced = im_cameraman
+
+reduced = 6;
+im_reduced = im_reduced/(2.^reduced);
+im_reduced = im_reduced*(2.^reduced);
+imshow(im_reduced)
+
+""
+down2 = im_cameraman(1:2:end,1:2:end);
+down4 = im_cameraman(1:4:end,1:4:end);
+
+imshow(down4)
