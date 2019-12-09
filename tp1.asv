@@ -1,32 +1,83 @@
 clear;
+close all;
 imdata = imread('mandrill.bmp');
 sizeIm = size(imdata)
 nbOctets = sizeIm(1) * sizeIm(2) * sizeIm(3)
 imfinfo('mandrill.bmp')
 
-"2. Quantification"
-"Infos sur les niveaux de gris"
+fprintf("2. Quantification")
+fprintf("Infos sur les niveaux de gris")
 imfinfo('cameraman.jpg')
 
-"Réduction du niveau de gris de l'image (modifier le paramètre 'reduced')"
-im_cameraman = imread('cameraman.jpg');
-im_reduced = im_cameraman
+fprintf("Réduction du niveau de gris de l'image (modifier le paramètre 'reduced')\n")
+DO_GRAYSCALE = true;
 
-reduced = 6;
-im_reduced = im_reduced/(2.^reduced);
-im_reduced = im_reduced*(2.^reduced);
-imshow(im_reduced)
+if DO_GRAYSCALE
+    im_cameraman = imread('cameraman.jpg');
+    scales = [1:8];
+    
+    for reduced = scales
+        im_reduced = im_cameraman;
+        im_reduced = im_reduced/(2.^reduced);
+        im_reduced = im_reduced*(2.^reduced);
+        print_image(im_reduced,strcat('cameraman_grayscale_x',num2str(2.^(8-reduced+1))), 1);
+    end
+end
 
-"Downscale l'image"
+fprintf("Downscale l'image\n")
 down2 = im_cameraman(1:2:end,1:2:end);
 down4 = im_cameraman(1:4:end,1:4:end);
 
-imshow(down4)
+print_image(down2,'cameraman_downscale_2',1);
 
-"Upscale l'image"
-interp_up2 = interp2(single(down2),1);
-interp_up4 = interp2(single(down4),3),1);
+print_image(down4,'cameraman_downscale_4',1);
 
-imagesc(interp_up4)
-colormap gray
-axis off
+fprintf("Upscale l'image\n")
+% Fonctionne pas...
+[x_up2,y_up2] = meshgrid(1:128);
+interp_up2 = interp2(double(down2),x_up2,y_up2);
+
+[x_up4,y_up4] = meshgrid(1:64);
+interp_up4 = interp2(double(down4),x_up4,y_up4);
+
+%figure
+%imagesc(interp_up2)
+%colormap gray
+%axis off
+print_image(interp_up2,'cameraman_interp_up_2',1);
+
+%figure
+%imagesc(interp_up4)
+%colormap gray
+%axis off
+print_image(interp_up4,'cameraman_interp_up_4',1);
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+fprintf("Espaces colorimétriques\n")
+pool = imread('pool.jpg');
+colors = ['red' 'green' 'blue'];
+colors_range = [];
+
+for i = 1:3
+    print_image(pool(:,:,1),strcat('pool_',colors(i),'_to_gray'),1);
+    color = pool;
+    removing = (1:3);
+    removing(i) = [];
+    color(:,:,removing) = 0;
+    print_image(color,'pool_red',1);
+    min = min(nonzeros(color));
+    max = max(nonzeros(color));
+    colors_range(i) = [min;max];
+end
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+fprintf('7 différences\n');
+
+im1 = imread('erreurs_7_1.jpg');
+im2 = imread('erreurs_7_2.jpg');
+
+diff = abs(im1-im2) + abs(im2-im1);
+print_image(diff, '7 differences',1);
+
+
+figure, axis on, histogram(R(:,:,1));

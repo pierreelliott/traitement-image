@@ -1,0 +1,10 @@
+function  print_image(matrix,filename, func = 1)
+
+    figure('visible', 'off')
+    title(filename)
+    imshow(matrix,[])
+    axis off
+    print(filename,'-djpeg');
+    
+end
+
