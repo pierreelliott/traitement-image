@@ -10,7 +10,7 @@ imfinfo('cameraman.jpg')
 
 "Réduction du niveau de gris de l'image (modifier le paramètre 'reduced')"
 im_cameraman = imread('cameraman.jpg');
-im_reduced = im_cameraman
+im_reduced = im_cameraman;
 
 reduced = 6;
 im_reduced = im_reduced/(2.^reduced);
@@ -24,9 +24,12 @@ down4 = im_cameraman(1:4:end,1:4:end);
 imshow(down4)
 
 "Upscale l'image"
-interp_up2 = interp2(single(down2),1);
-interp_up4 = interp2(single(down4),3);
+interp_up2 = interp2(double(down2),1);
+interp_up4 = interp2(double(down4),2);
 
-imagesc(interp_up4)
+size(im_cameraman)
+size(interp_up2)
+
+imagesc(interp_up2)
 colormap gray
 axis off

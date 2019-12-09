@@ -17,8 +17,16 @@ im_reduced = im_reduced/(2.^reduced);
 im_reduced = im_reduced*(2.^reduced);
 imshow(im_reduced)
 
-""
+"Downscale l'image"
 down2 = im_cameraman(1:2:end,1:2:end);
 down4 = im_cameraman(1:4:end,1:4:end);
 
 imshow(down4)
+
+"Upscale l'image"
+interp_up2 = interp2(single(down2),1);
+interp_up4 = interp2(single(down4),3),1);
+
+imagesc(interp_up4)
+colormap gray
+axis off
