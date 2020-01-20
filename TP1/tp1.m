@@ -70,9 +70,10 @@ for i = 1:3
     colors_max(i) = max(nonzeros(color));
 end
 
+%{
 pool_yuv = rgb2ycbcr(pool);
 for i = 1:3
-    print_image(pool(:,:,1),strcat('pool_yuv_',num2str(i),'_to_gray'),1);
+    print_image(pool_yuv(:,:,i),strcat('pool_yuv_',num2str(i),'_to_gray'),i);
     %{
     color = pool;
     removing = (1:3);
@@ -83,6 +84,7 @@ for i = 1:3
     colors_max(i) = max(nonzeros(color));
     %}
 end
+%}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 fprintf('7 différences\n');
