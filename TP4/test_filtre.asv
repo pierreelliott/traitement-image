@@ -1,0 +1,17 @@
+function fig = test_filtre(noised, fig, filtre, nom_filtre, options)
+
+fig = fig + 1;
+figure(fig);
+subplot(3, 2, 1), imshow(noised)
+bouh = "42"
+title('Image bruitée');
+j = 2;
+% Variations du filtre
+for i = 3:2:11
+    modified = apply_filter(noised, filtre, i, options);
+    subplot(3, 2, j), imshow(modified), title(strcat('+', title,' (size=',num2str(i),')'));
+    j = j +1;
+end
+
+end
+

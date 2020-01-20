@@ -1,0 +1,46 @@
+clear;
+close all;
+fig = 0;
+
+cameraman_b = imread("cameraman_grayscale_x2.jpg");
+lena = imread("Lena_nb.jpg");
+
+fig = fig + 1;
+figure(fig);
+subplot(2, 2, 1), imshow(cameraman_b), title('Image originale')
+subplot(2, 2, 3), imshow(ouverture(cameraman_b,3)), title('Après ouverture')
+subplot(2, 2, 4), imshow(fermeture(cameraman_b,3)), title('Après fermeture')
+
+
+fig = fig + 1;
+figure(fig);
+imshow(gradient_morpho(lena));
+title("Détection de contours")
+
+
+lena_n = imnoise(lena, 'salt & pepper', 0.05);
+lena_ng = imnoise(lena, 'gaussian', 0, 0.01);
+
+fig = fig + 1;
+figure(fig);
+subplot(2, 2, 1), imshow(lena), title('Lena')
+subplot(2, 2, 3), imshow(lena_n), title('Lena (+bruit)')
+subplot(2, 2, 4), imshow(lena_ng), title('Lena (+bruit gaussien)')
+
+
+% h1 = (1/9) * [[1 1 1];[1 1 1];[1 1 1]];
+% h2 = (1/16) * [[1 2 1];[2 4 2];[1 2 1]];
+% 
+% 
+% fig = fig + 1;
+% figure(fig);
+% subplot(3, 2, 1), imshow(lena_n), title('Lena (+bruit)')
+% subplot(3, 2, 2), imshow(lena_ng), title('Lena (+bruit gaussien)')
+% subplot(3, 2, 3), imshow(convolution(lena_n, h1, false)), title('Lena (+bruit) > H1')
+% subplot(3, 2, 4), imshow(convolution(lena_ng, h1, false)), title('Lena (+bruit gaussien) > H1')
+% subplot(3, 2, 5), imshow(convolution(lena_n, h2, false)), title('Lena (+bruit) > H2')
+% subplot(3, 2, 6), imshow(convolution(lena_ng, h2, false)), title('Lena (+bruit gaussien) > H2')
+
+
+fig = test_filtres('lena", lena_n, fig);
+fig = test_filtres('len, lena_ng, fig);

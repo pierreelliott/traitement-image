@@ -1,0 +1,14 @@
+function modified = apply_filter(image, filtre, size)
+
+if strcmp(filtre, 'ouverture')
+    modified = ouverture(image, size);
+elseif strcmp(filtre, 'fermeture')
+    modified = fermeture(image, size);
+elseif strcmp(filtre, 'gaussian')
+    modified = fermeture(image, size);
+else
+    modified = convolution(image, fspecial(filtre, size), false);
+end
+
+end
+

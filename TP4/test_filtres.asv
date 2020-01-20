@@ -1,0 +1,24 @@
+function fig = test_filtres(image, image_title, noised, fig, bruit)
+
+%noised = imnoise(lena, 'salt & pepper', proba);
+%g_noised = imnoise(lena, 'gaussian', 0, variance);
+
+% fig = fig + 1;
+% figure(fig);
+% imshow(image);
+% title(strcat('Image originale (bruit ', bruit, ')'))
+
+filename = ['images/' image_title ' + bruit ' bruit];
+
+fig = test_filtre(noised, fig, 'average', 'Filtre moyenneur', [filename ' - f_moyenneur'], '');
+
+fig = test_filtre(noised, fig, 'gaussian', 'Filtre gaussien', [filename ' - f_gaussien'], '');
+
+fig = test_filtre(noised, fig, 'median', 'Filtre médian', [filename ' - f_median'], '');
+
+fig = test_filtre(noised, fig, 'ouverture', 'Ouverture', [filename ' - ouverture']);
+
+fig = test_filtre(noised, fig, 'fermeture', 'Fermeture', [filename ' - fermeture']);
+
+end
+
