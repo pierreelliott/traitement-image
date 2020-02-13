@@ -1,5 +1,6 @@
 clear;
 close all;
+pkg load image;
 fig = 0;
 
 cameraman_b = imread("cameraman_grayscale_x2.jpg");
@@ -12,11 +13,12 @@ subplot(2, 2, 3), imshow(ouverture(cameraman_b,3, 'square')), title('Après ouver
 subplot(2, 2, 4), imshow(fermeture(cameraman_b,3, 'square')), title('Après fermeture')
 saveas(gcf, 'images/Test ouverture_fermeture', 'png');
 
+h5 = [[0 1 0];[1 -4 1];[0 1 0]];
 
 fig = fig + 1;
 figure(fig);
-imshow(gradient_morpho(lena));
-title("Détection de contours")
+subplot(1, 2, 1), imshow(gradient_morpho(lena)), title("Détection de contours (gradient morpho)")
+subplot(1, 2, 2), convol(lena, h5, false), title('Détection de contours (filtre H5)')
 saveas(gcf, 'images/detection_contour', 'png');
 
 

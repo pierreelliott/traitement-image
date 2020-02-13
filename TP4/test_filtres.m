@@ -16,14 +16,13 @@ fig = test_filtre(noised, fig, 'gaussian', 'Filtre gaussien', [filename ' - f_ga
 
 fig = test_filtre(noised, fig, 'median', 'Filtre médian', [filename ' - f_median'], '');
 
-shapes = ["square" "diamond" "disk"];
-for shape = shapes
-    fig = test_filtre(noised, fig, 'ouverture', 'Ouverture', strcat([filename ' - ouverture ('], shape, ')'), shape);
+shapes = {"square"; "diamond"; "disk"};
+for shape = 1:size(shapes, 1)
+    fig = test_filtre(noised, fig, 'ouverture', 'Ouverture', strcat([filename ' - ouverture ('], shapes{shape}, ')'), shapes{shape});
 end
 
-for shape = shapes
-    fig = test_filtre(noised, fig, 'fermeture', 'Fermeture', strcat([filename ' - fermeture ('], shape, ')'), shape);
+for shape = 1:size(shapes, 1)
+    fig = test_filtre(noised, fig, 'fermeture', 'Fermeture', strcat([filename ' - fermeture ('], shapes{shape}, ')'), shapes{shape});
 end
 
 end
-
